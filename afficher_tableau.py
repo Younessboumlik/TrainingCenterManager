@@ -1,3 +1,8 @@
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication,QMainWindow
 import mysql.connector as sql
@@ -18,7 +23,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QLineEdi
 #window showing all tables:
 class win_Afftables(QMainWindow):
     global db
-    db = sql.connect(host = "localhost",user = "root",passwd = "Dlsfifaftspes21.",database = "gestion_de_centre")
+    db = sql.connect(host = os.getenv('DB_HOST'),user = os.getenv('DB_USER'),passwd  = os.getenv('DB_PASSWORD'),database = os.getenv('DB_NAME'))
     cursor = db.cursor()
     def __init__(self):
         super().__init__()

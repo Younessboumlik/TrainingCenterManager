@@ -1,3 +1,8 @@
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 from PyQt5.QtCore import QDate,QDateTime
 from PyQt5 import QtCore
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
@@ -26,7 +31,7 @@ done = False
 groups_wanted = []
 groups_wanted_n_active = []
 groupes_selected = []
-db = sql.connect(host = "localhost",user = "root",passwd = "Dlsfifaftspes21.",database = "gestion_de_centre")
+db = sql.connect(host = os.getenv('DB_HOST'),user = os.getenv('DB_USER'),passwd  = os.getenv('DB_PASSWORD'),database = os.getenv('DB_NAME'))
 cursor = db.cursor()
 
 class new_win(QtWidgets.QWidget):
@@ -337,7 +342,7 @@ class new_win(QtWidgets.QWidget):
        db.cursor().execute("insert into appartenir(id_client,id_groupe) values(%s,%s)",(id_client,i))
       db.commit() 
       db.close()
-      db = sql.connect(host = "localhost",user = "root",passwd = "Dlsfifaftspes21.",database = "gestion_de_centre")
+      db = sql.connect(host = os.getenv('DB_HOST'),user = os.getenv('DB_USER'),passwd  = os.getenv('DB_PASSWORD'),database = os.getenv('DB_NAME'))
       cursor = db.cursor()  
       mssg = QMessageBox()
       mssg.setIcon(QMessageBox.Information)
@@ -349,7 +354,7 @@ class new_win(QtWidgets.QWidget):
       mssg.exec_()
       db.commit()
       db.close()
-      db = sql.connect(host = "localhost",user = "root",passwd = "Dlsfifaftspes21.",database = "gestion_de_centre")
+      db = sql.connect(host = os.getenv('DB_HOST'),user = os.getenv('DB_USER'),passwd  = os.getenv('DB_PASSWORD'),database = os.getenv('DB_NAME'))
       cursor = db.cursor()  
    def inscription_clicked(self):
       global db
@@ -371,7 +376,7 @@ class new_win(QtWidgets.QWidget):
        db.cursor().execute("insert into appartenir(id_client,id_groupe) values(%s,%s)",(id_client,i))
       db.commit() 
       db.close()
-      db = sql.connect(host = "localhost",user = "root",passwd = "Dlsfifaftspes21.",database = "gestion_de_centre")
+      db = sql.connect(host = os.getenv('DB_HOST'),user = os.getenv('DB_USER'),passwd  = os.getenv('DB_PASSWORD'),database = os.getenv('DB_NAME'))
       cursor = db.cursor()  
       mssg = QMessageBox()
       mssg.setIcon(QMessageBox.Information)
@@ -586,7 +591,7 @@ class new_win(QtWidgets.QWidget):
      self.combo_box_gr.setItemData(0, "non avtivee", Qt.ToolTipRole)
      db.commit()
      db.close()
-     db = sql.connect(host = "localhost",user = "root",passwd = "Dlsfifaftspes21.",database = "gestion_de_centre")
+     db = sql.connect(host = os.getenv('DB_HOST'),user = os.getenv('DB_USER'),passwd  = os.getenv('DB_PASSWORD'),database = os.getenv('DB_NAME'))
      cursor = db.cursor()  
      self.btn.hide()
 

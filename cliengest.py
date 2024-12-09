@@ -1,3 +1,8 @@
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox,QTableWidget,QVBoxLayout,QWidget,QTableWidgetItem,QPushButton,QScrollArea
 from PyQt5.QtGui import QColor,QIcon
@@ -6,7 +11,7 @@ import sys
 import mysql.connector
 global db 
 global cursor
-db = mysql.connector.connect(host="localhost", user="root", password="Dlsfifaftspes21.", database="gestion_de_centre")
+db = mysql.connector.connect(host=os.getenv('DB_HOST'), user=os.getenv('DB_USER'), password=os.getenv('DB_PASSWORD'), database=os.getenv('DB_NAME'))
 cursor=db.cursor()
 class MyLineEdit(QtWidgets.QLineEdit):
     def __init__(self, *args, **kwargs):
@@ -184,7 +189,7 @@ class Clientgest(QtWidgets.QWidget):
             
 
         # db.close()
-        # db = mysql.connect(host = "localhost",user = "root",passwd = "Dlsfifaftspes21.",database = "gestion_de_centre")
+        # db = mysql.connect(host = os.getenv('DB_HOST'),user = os.getenv('DB_USER'),passwd  = os.getenv('DB_PASSWORD'),database = os.getenv('DB_NAME'))
         # cursor = db.cursor()  
         # Display success message
         
@@ -199,7 +204,7 @@ class Clientgest(QtWidgets.QWidget):
             cursor.execute(f"DELETE FROM client WHERE id_client = %s", (id,))
             db.commit()
             # db.close()
-            # db = mysql.connect(host = "localhost",user = "root",passwd = "Dlsfifaftspes21.",database = "gestion_de_centre")
+            # db = mysql.connect(host = os.getenv('DB_HOST'),user = os.getenv('DB_USER'),passwd  = os.getenv('DB_PASSWORD'),database = os.getenv('DB_NAME'))
             # cursor = db.cursor()  
             self.delete_entry.clear()
         # Display success message
@@ -218,7 +223,7 @@ class Clientgest(QtWidgets.QWidget):
                             WHERE id_client = {id}""")
             db.commit()
             # db.close()
-            # db = mysql.connect(host = "localhost",user = "root",passwd = "Dlsfifaftspes21.",database = "gestion_de_centre")
+            # db = mysql.connect(host = os.getenv('DB_HOST'),user = os.getenv('DB_USER'),passwd  = os.getenv('DB_PASSWORD'),database = os.getenv('DB_NAME'))
             # cursor = db.cursor()  
             QtWidgets.QMessageBox.information(self, "Succès", "Client mis à jour avec succès")
         except:

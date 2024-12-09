@@ -1,3 +1,8 @@
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox,QTableWidget,QVBoxLayout,QWidget,QTableWidgetItem,QPushButton,QScrollArea
 from PyQt5.QtGui import QColor,QIcon
@@ -5,7 +10,7 @@ import sys
 import mysql.connector
 global db 
 global cursor
-db = mysql.connector.connect(host="localhost", user="root", password="Dlsfifaftspes21.", database="gestion_de_centre")
+db = mysql.connector.connect(host=os.getenv('DB_HOST'), user=os.getenv('DB_USER'), password=os.getenv('DB_PASSWORD'), database=os.getenv('DB_NAME'))
 cursor=db.cursor()
 class MyLineEdit(QtWidgets.QLineEdit):
     def __init__(self, *args, **kwargs):
@@ -186,7 +191,7 @@ class ProfGest(QtWidgets.QWidget):
                        (name,prenom,email,phone,titre))
         db.commit()
         # db.close()
-        # db = mysql.connector.connect(host = "localhost",user = "root",passwd = "Dlsfifaftspes21.",database = "gestion_de_centre")
+        # db = mysql.connector.connect(host = os.getenv('DB_HOST'),user = os.getenv('DB_USER'),passwd  = os.getenv('DB_PASSWORD'),database = os.getenv('DB_NAME'))
         # cursor = db.cursor()  
         # Display success message
         QtWidgets.QMessageBox.information(self, "Succès", "Prof ajouté avec succès")
@@ -203,7 +208,7 @@ class ProfGest(QtWidgets.QWidget):
             cursor.execute(f"DELETE FROM professeur WHERE id_professeur = %s", (id,))
             db.commit()
             # db.close()
-            # db = mysql.connector.connect(host = "localhost",user = "root",passwd = "Dlsfifaftspes21.",database = "gestion_de_centre")
+            # db = mysql.connector.connect(host = os.getenv('DB_HOST'),user = os.getenv('DB_USER'),passwd  = os.getenv('DB_PASSWORD'),database = os.getenv('DB_NAME'))
             # cursor = db.cursor()  
             self.delete_entry.clear()
         # Display success message
@@ -224,7 +229,7 @@ class ProfGest(QtWidgets.QWidget):
                            WHERE id_professeur = {id}""")
         db.commit()
         # db.close()
-        # db = mysql.connector.connect(host = "localhost",user = "root",passwd = "Dlsfifaftspes21.",database = "gestion_de_centre")
+        # db = mysql.connector.connect(host = os.getenv('DB_HOST'),user = os.getenv('DB_USER'),passwd  = os.getenv('DB_PASSWORD'),database = os.getenv('DB_NAME'))
         # cursor = db.cursor()  
         QtWidgets.QMessageBox.information(self, "Succès", "Prof mis à jour avec succès")
 

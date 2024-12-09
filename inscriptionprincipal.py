@@ -1,3 +1,8 @@
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 from PyQt5.QtCore import QDate,QDateTime
 from PyQt5 import QtCore
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
@@ -15,6 +20,10 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication,QMainWindow
 import mysql.connector as sql
 from datetime import date
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 niv = None
 libele = None
 service = None
@@ -26,11 +35,12 @@ done = False
 groups_wanted = []
 groups_wanted_n_active = []
 groupes_selected = []
-db = sql.connect(host = "localhost",user = "root",passwd = "Dlsfifaftspes21.",database = "gestion_de_centre")
+db = sql.connect(host = os.getenv('DB_HOST'),user = os.getenv('DB_USER'),passwd  = os.getenv('DB_PASSWORD'),database = os.getenv('DB_NAME'))
 cursor = db.cursor()
 
 class new_win(QtWidgets.QWidget):
    def __init__(self):
+    
     super().__init__()
     self.setGeometry(QtCore.QRect(0, 0, 1920, 1080))
     self.setFixedSize(self.size())
@@ -326,7 +336,7 @@ class new_win(QtWidgets.QWidget):
       db.commit()
       cursor.execute("FLUSH TABLES users;")
       db.close()
-      db = sql.connect(host = "localhost",user = "root",passwd = "Dlsfifaftspes21.",database = "gestion_de_centre")
+      db = sql.connect(host = os.getenv('DB_HOST'),user = os.getenv('DB_USER'),passwd  = os.getenv('DB_PASSWORD'),database = os.getenv('DB_NAME'))
       cursor = db.cursor() 
       mssg = QMessageBox()
       mssg.setIcon(QMessageBox.Information)
@@ -339,7 +349,7 @@ class new_win(QtWidgets.QWidget):
       db.commit()
       cursor.execute("FLUSH TABLES users;")
       db.close()
-      db = sql.connect(host = "localhost",user = "root",passwd = "Dlsfifaftspes21.",database = "gestion_de_centre")
+      db = sql.connect(host = os.getenv('DB_HOST'),user = os.getenv('DB_USER'),passwd  = os.getenv('DB_PASSWORD'),database = os.getenv('DB_NAME'))
       cursor = db.cursor() 
       
    def inscription_clicked(self):
@@ -363,7 +373,7 @@ class new_win(QtWidgets.QWidget):
       db.commit()
       cursor.execute("FLUSH TABLES users;")
       db.close()
-      db = sql.connect(host = "localhost",user = "root",passwd = "Dlsfifaftspes21.",database = "gestion_de_centre")
+      db = sql.connect(host = os.getenv('DB_HOST'),user = os.getenv('DB_USER'),passwd  = os.getenv('DB_PASSWORD'),database = os.getenv('DB_NAME'))
       cursor = db.cursor()  
       mssg = QMessageBox()
       mssg.setIcon(QMessageBox.Information)
@@ -581,7 +591,7 @@ class new_win(QtWidgets.QWidget):
      db.commit()
      cursor.execute("FLUSH TABLES users;")
      db.close()
-     db = sql.connect(host = "localhost",user = "root",passwd = "Dlsfifaftspes21.",database = "gestion_de_centre")
+     db = sql.connect(host = os.getenv('DB_HOST'),user = os.getenv('DB_USER'),passwd  = os.getenv('DB_PASSWORD'),database = os.getenv('DB_NAME'))
      cursor = db.cursor()  
      self.btn.hide()
    def initialise(self):

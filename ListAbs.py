@@ -1,6 +1,11 @@
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 import mysql.connector as sql
 from datetime import date
-db = sql.connect(host = "localhost",user = "root",passwd = "Dlsfifaftspes21.",database = "gestion_de_centre")
+db = sql.connect(host = os.getenv('DB_HOST'),user = os.getenv('DB_USER'),passwd  = os.getenv('DB_PASSWORD'),database = os.getenv('DB_NAME'))
 cursor = db.cursor()
 from PyQt5.QtCore import QDate,QDateTime
 from PyQt5 import *
@@ -226,7 +231,7 @@ class feulle_absence(QMainWindow):
                      list_per_rest_0_seance+=[(id,grp)]
        db.commit()
        db.close()
-       db = sql.connect(host = "localhost",user = "root",passwd = "Dlsfifaftspes21.",database = "gestion_de_centre")
+       db = sql.connect(host = os.getenv('DB_HOST'),user = os.getenv('DB_USER'),passwd  = os.getenv('DB_PASSWORD'),database = os.getenv('DB_NAME'))
        cursor = db.cursor()  
        cur = db.cursor()
        for check in self.list_check:
@@ -260,7 +265,7 @@ class feulle_absence(QMainWindow):
           cur.execute("update groupe set nbr_clients = %s where id_groupe = %s;",(int(nbr_cl)-1,i[1]))
           db.commit()
        db.close()
-       db = sql.connect(host = "localhost",user = "root",passwd = "Dlsfifaftspes21.",database = "gestion_de_centre")
+       db = sql.connect(host = os.getenv('DB_HOST'),user = os.getenv('DB_USER'),passwd  = os.getenv('DB_PASSWORD'),database = os.getenv('DB_NAME'))
        cursor = db.cursor()  
        cur = db .cursor()
        fen = None   

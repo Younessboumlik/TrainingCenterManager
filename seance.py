@@ -1,3 +1,8 @@
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 from PyQt5 import *
 from PyQt5.QtWidgets import QMenu,QAction,QComboBox,QCheckBox,QMessageBox
 import sys
@@ -11,7 +16,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QLineEdi
 import mysql.connector as sql
 from datetime import date
 from PyQt5 import QtCore
-db = sql.connect(host = "localhost",user = "root",passwd = "Dlsfifaftspes21.",database = "gestion_de_centre")
+db = sql.connect(host = "localhost",user = "root",passwd  = os.getenv('DB_PASSWORD'),database = os.getenv('DB_NAME'))
 cursor = db.cursor()
 cursor1 = db.cursor()
 cursor2 = db.cursor()
@@ -173,7 +178,7 @@ class window_seance(QMainWindow):
                         str(self.combobox.currentText()),str(self.combobox1.currentText())))
         db.commit()
         # db.close()
-        # db = sql.connect(host = "localhost",user = "root",passwd = "Dlsfifaftspes21.",database = "gestion_de_centre")
+        # db = sql.connect(host = os.getenv('DB_HOST'),user = os.getenv('DB_USER'),passwd  = os.getenv('DB_PASSWORD'),database = os.getenv('DB_NAME'))
         # cursor = db.cursor()  
         self.text5 = QLabel(self)
         self.text5.setText(f"Le seance a été bien créé.")
@@ -289,7 +294,7 @@ class delete_seance(QMainWindow):
             cursor.execute("delete from seance where id_groupe = %s",(self.combobox5.currentText(),))
             db.commit()
             db.close()
-            db = sql.connect(host = "localhost",user = "root",passwd = "Dlsfifaftspes21.",database = "gestion_de_centre")
+            db = sql.connect(host = os.getenv('DB_HOST'),user = os.getenv('DB_USER'),passwd  = os.getenv('DB_PASSWORD'),database = os.getenv('DB_NAME'))
             cursor = db.cursor()  
             self.combobox1.clear()
             self.combobox2.clear()

@@ -1,3 +1,8 @@
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QLineEdit,QVBoxLayout,QToolButton
 from PyQt5.QtCore import QTimer,Qt
 from PyQt5.QtGui import QColor,QIcon

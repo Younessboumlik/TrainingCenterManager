@@ -1,3 +1,8 @@
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 from login import password_change_window, userid_change_window
 from seance import affich_seance,supprim_seance
 from coursgest import cours_gest
@@ -14,7 +19,7 @@ from PyQt5.QtWidgets import QApplication,QMainWindow,QToolButton
 login_totale = False
 import mysql.connector as sql
 from datetime import date
-db = sql.connect(host = "localhost",user = "root",passwd = "Dlsfifaftspes21.",database = "gestion_de_centre")
+db = sql.connect(host = os.getenv('DB_HOST'),user = os.getenv('DB_USER'),passwd  = os.getenv('DB_PASSWORD'),database = os.getenv('DB_NAME'))
 cursor = db.cursor()
 cursor.execute("SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED")
 from PyQt5.QtCore import QDate,QDateTime
@@ -34,6 +39,8 @@ class Loginpage(QWidget):
     global login_totale
     def __init__(self):
         super().__init__()
+
+        print("Host:" + os.getenv('DB_HOST'))
         self.login_successful = False
         self.setWindowTitle('Login')
         self.resize(365,250)
